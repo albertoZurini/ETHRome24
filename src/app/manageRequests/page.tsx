@@ -35,6 +35,7 @@ const Home: React.FC = () => {
         body: JSON.stringify(body)
       }
     )
+    alert("Feedback submitted")
   }
 
   return (

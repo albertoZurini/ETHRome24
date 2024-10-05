@@ -34,6 +34,7 @@ async function handler(
         console.log(data)
     }
 
+    // TODO: shazam should put here the email shit
 
     return NextResponse.json(data, { status: 200 })
 }
