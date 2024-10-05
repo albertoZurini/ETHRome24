@@ -7,13 +7,26 @@ const path = require("path");
 
 dotenv.config();
 
+function toBytes32Array(data) {
+    const bytes32Array = [];
+    for (let i = 0; i < data.length; i += 1) {
+        const chunk = data[i];  // Get a chunk of 32 bytes
+        const paddedChunk = ethers.utils.hexZeroPad(chunk, 32);  // Pad to 32 bytes if necessary
+        bytes32Array.push(paddedChunk);
+    }
+    return bytes32Array;
+}
+
+
 async function main() {
     const proof = fs.readFileSync("../noir_proj/target/proof").toString('hex');
     const publicInput = "Hello, today there were no problems with your servicea3     ";
+    console.log(stringToHexByteArray(publicInput))
+    
     
     // Convert to bytes and then to hex
     const publicInputHex = ethers.utils.toUtf8Bytes(publicInput);
-    const publicInputArray = publicInputHex.map(byte => `0x${byte.toString(16).padStart(2, '0')}`);
+    const publicInputArray = publicInputHex //.map(byte => `0x${byte.toString(16).padStart(2, '0')}`);
 
     // Log the proof and public input array for debugging
     console.log("Proof:", proof);
@@ -30,7 +43,7 @@ async function main() {
     const contract = new ethers.Contract(contractAddress, contractABI, wallet);
 
     try {
-        const result = await contract.verify(proof, publicInputArray);
+        const result = await contract.verify("0x" + proof, toBytes32Array(publicInputArray));
         console.log("Method Result:", result);
     } catch (error) {
         console.error("Error calling method:", error);
