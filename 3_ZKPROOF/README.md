@@ -5,24 +5,18 @@
 
 `nargo check`
 
-`nargo execute pos`
+`nargo execute king`
 
-`bb prove -b ./target/pos.json -w ./target/pos.gz -o ./target/proof`
+`bb prove -b ./target/noir_proj.json -w ./target/king.gz -o ./target/proof`
 
-`bb write_vk -b ./target/pos.json -o ./target/vk`
+`bb write_vk -b ./target/noir_proj.json -o ./target/vk`
 
 `bb verify -k ./target/vk -p ./target/proof`
 
+Generate the contract
+`bb contract`
 
-
-2. [https://docs.zkverify.io/tutorials/submit-proofs/noir-ultraplonk-example](https://docs.zkverify.io/tutorials/submit-proofs/noir-ultraplonk-example)
-
-
-`noir-cli proof-datav2 -n 1 --input-proof ./target/proof --output-proof ./target/proof_out --output-pubs ./target/pubs`
-
-`noir-cli key-to-hex --input ./target/vk --output ./target/vk_out`
-
-`noir-cli verify --key ./target/vk --proof ./target/proof_out --pubs ./target/pubs`
+Use the `verify` method passing in the hex of the proof and the public input
 
 ## Inside submit_to_zkv folder
 
