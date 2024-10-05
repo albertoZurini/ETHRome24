@@ -18,6 +18,6 @@ Generate the contract
 
 Use the `verify` method passing in the hex of the proof and the public input
 
-## Inside submit_to_zkv folder
+## Inside `deploy_contract` folder
 
-3. At this point we should run `index.js`
+Do the deployment with hardat

@@ -1,32 +1,40 @@
 const zk = require("zkverifyjs")
 const {SEED} = require("./conf")
 const fs = require('fs');
+const ethers = require("ethers");
+const dotenv = require("dotenv");
+const path = require("path");
 
-async function main(){
-    const zkVerifySession = zk.zkVerifySession;
-    console.log(SEED);
-    const session = await zkVerifySession
-            .start()
-            .Testnet()
-            .withAccount(SEED)
+dotenv.config();
+
+async function main() {
+    const proof = fs.readFileSync("../noir_proj/target/proof").toString('hex');
+    const publicInput = "Hello, today there were no problems with your servicea3     ";
     
-            const accountInfo = await session.accountInfo();
-console.log(accountInfo.address);
-console.log(accountInfo.nonce);
-console.log(accountInfo.freeBalance);
-console.log(accountInfo.reservedBalance);
+    // Convert to bytes and then to hex
+    const publicInputHex = ethers.utils.toUtf8Bytes(publicInput);
+    const publicInputArray = publicInputHex.map(byte => `0x${byte.toString(16).padStart(2, '0')}`);
 
-    const proof = fs.readFileSync("../noir_proj/target/proof").toString('hex'),
-    publicSignals = "0x" + fs.readFileSync("../noir_proj/target/pubs").toString('hex'), 
-    vk = fs.readFileSync("../noir_proj/target/vk").toString('hex');
+    // Log the proof and public input array for debugging
+    console.log("Proof:", proof);
+    console.log("Public Input Array:", publicInputArray);
 
-    //console.log(proof, publicSignals, vk);
+    const contractAddress = "0xFB318f4dAd1CA0264FCcE364eb41eA928dEef41C";
 
-    console.log("Start")
-    const { events, transactionResult } = await session.verify()
-            .ultraplonk()
-            .execute(proof, publicSignals, vk);
+    const artifactPath = path.resolve(__dirname, '../deploy_contract/artifacts/contracts/contract.sol/UltraVerifier.json');
+    const contractArtifact = JSON.parse(fs.readFileSync(artifactPath, 'utf8'));
+    const contractABI = contractArtifact.abi;
 
-    console.log(await transactionResult)
+    const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+    const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+    const contract = new ethers.Contract(contractAddress, contractABI, wallet);
+
+    try {
+        const result = await contract.verify(proof, publicInputArray);
+        console.log("Method Result:", result);
+    } catch (error) {
+        console.error("Error calling method:", error);
+    }
 }
+    
 main()
