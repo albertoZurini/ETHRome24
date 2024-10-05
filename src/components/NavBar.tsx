@@ -52,12 +52,16 @@ export default function NavBar() {
         ref={navLinks}
         className="relative ml-20 flex h-full items-center gap-x-8 pr-2 text-base"
       >
-        <Link href="/protectedData" className="-mx-2 flex h-full items-center p-2">
-          My Protected Data
-        </Link>
-        <Link href="/sendEmail" className="-mx-2 flex h-full items-center p-2">
-          Send Email
-        </Link>
+        <div>
+          <Link href="/protectedData" className="-mx-2 flex h-full items-center p-2">
+            My Protected Data
+          </Link>
+        </div>
+        <div>
+          <Link href="/sendEmail" className="-mx-2 flex h-full items-center p-2">
+            Send Email
+          </Link>
+        </div>
         <div
           className="absolute bottom-0 h-1 rounded-md bg-white transition-all duration-300"
           style={{ width: tabIndicatorWidth, left: tabIndicatorLeft }}
