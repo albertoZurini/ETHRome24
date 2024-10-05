@@ -1,9 +1,9 @@
 "use client";
 
 import { WagmiConfig } from 'wagmi';
-import { wagmiConfig } from './utils/wagmiConfig';
+import { wagmiConfig } from '../utils/wagmiConfig';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import NavBar from './components/NavBar';
+import NavBar from '@/components/NavBar';
 
 const queryClient = new QueryClient();
 

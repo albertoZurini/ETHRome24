@@ -1,7 +1,8 @@
 "use client";
+import LoginGuard from "@/components/LoginGuard";
+
+import NfcReader from "@/components/NFCReader";
 import Head from "next/head";
-import NfcReader from "./components/NFCReader";
-import LoginGuard from "./components/LoginGuard";
 
 export default function Home() {
   return (
