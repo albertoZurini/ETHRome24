@@ -24,9 +24,9 @@ const GoogleLoginButton: React.FC = () => {
           <button onClick={() => signOut()}>Sign out</button>
         </>
       ) : (
-        <>
-          <button onClick={handleSignIn}>Sign in with Google</button>
-          {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
+        <>{
+          <button className='btn btn-primary btn-wide text-white' onClick={handleSignIn}>Sign in with Google</button>}
+          {error && <p>{error}</p>} {/* Display error message */}
         </>
       )}
     </div>

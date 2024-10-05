@@ -1,23 +1,23 @@
-"use client"
+"use client";
+import CommentsTextBox from "@/components/CommentsTextBox";
+import GoogleLoginButton from "@/components/GoogleLoginButton";
+import LoginGuard from "@/components/LoginGuard";
+import NfcReader from "@/components/NFCReader";
+import { SessionProvider, useSession } from "next-auth/react";
 
-import { SessionProvider } from 'next-auth/react';
-import GoogleLoginButton from './components/GoogleLoginButton';
-
-import Head from "next/head";
-import NfcReader from "./components/NFCReader";
-
-const Home: React.FC = () => { // Use React.FC to define the component type
+const Home: React.FC = () => {
+  // Use React.FC to define the component type
   return (
     <SessionProvider>
-      <div>
-        <Head>
-          <title>NFC Reader Test 2</title>
-          <meta name="description" content="Test NFC Reader functionality" />
-        </Head>
-        <main style={{ padding: '20px', textAlign: 'center' }}>
-          <h1>NFC Reader Test Page 2</h1>
-          <NfcReader />
-          <GoogleLoginButton /> {/* Add your Google Login Button here */}
+      <div className="flex flex-col h-screen justify-center mx-auto ">
+        <main className="mx-auto space-y-5">
+          <LoginGuard>
+            <SessionProvider>
+              <GoogleLoginButton />
+              <NfcReader />
+              <CommentsTextBox />
+            </SessionProvider>
+          </LoginGuard>
         </main>
       </div>
     </SessionProvider>
