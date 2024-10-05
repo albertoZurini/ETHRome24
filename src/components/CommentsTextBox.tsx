@@ -4,13 +4,8 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import crypto from "crypto";
 
-export default function CommentsTextBox({
-  submit,
-}: {
-  submit: (content: string) => void;
-}) {
+export default function CommentsTextBox() {
   const [content, setContent] = useState<string>("");
-
 
   const { data: session } = useSession(); // Get session (with user email)
   // const { data: session } = useSession({ required: true }); // Require session
@@ -22,7 +17,8 @@ export default function CommentsTextBox({
       email: session?.user?.email,
       uid: uid,
     };
-    console.log(comment);
+
+    // alert("Comment submitted: " + JSON.stringify(comment));
 
     return comment;
   }
@@ -34,7 +30,9 @@ export default function CommentsTextBox({
         value={content}
         onChange={(e) => setContent(e.target.value)}
       ></textarea>
-      <button className="btn btn-link" onClick={() => sendComment(content)}>Submit</button>
+      <button className="btn btn-link" onClick={() => sendComment(content)}>
+        Submit
+      </button>
     </div>
   );
 }
