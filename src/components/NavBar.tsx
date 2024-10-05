@@ -38,13 +38,12 @@ export default function NavBar() {
   }, [pathname]);
 
   return (
-    <header className="dark flex h-[64px] items-center bg-grey-900 px-8 text-white">
+    <header className="dark flex h-[64px] items-center bg-grey-900 px-8 text-white bg-primary">
       <Link href="/protectedData" className="-mx-2 flex h-full items-center p-2">
         <div
           className="ml-3 font-bold leading-5"
-          style={{ fontFamily: 'Space Mono' }}
         >
-          iExec
+          Yes, ZKing!
         </div>
       </Link>
 
@@ -52,16 +51,6 @@ export default function NavBar() {
         ref={navLinks}
         className="relative ml-20 flex h-full items-center gap-x-8 pr-2 text-base"
       >
-        <div>
-          <Link href="/protectedData" className="-mx-2 flex h-full items-center p-2">
-            My Protected Data
-          </Link>
-        </div>
-        <div>
-          <Link href="/sendEmail" className="-mx-2 flex h-full items-center p-2">
-            Send Email
-          </Link>
-        </div>
         <div
           className="absolute bottom-0 h-1 rounded-md bg-white transition-all duration-300"
           style={{ width: tabIndicatorWidth, left: tabIndicatorLeft }}
@@ -69,11 +58,11 @@ export default function NavBar() {
       </div>
 
       {isConnected ? (
-        <div className="flex flex-1 items-center justify-end gap-x-1">
-          <span>{address}</span>
+        <div className="flex flex-1 items-center ">
+          <span>{"Welcome, " + address?.substring(0, 6) + "..." + address?.substring(address?.length - 4)}</span>
           <button
             type="button"
-            className="-mr-2 bg-grey-900 p-2"
+            className="-mr-2 bg-grey-900 p-2 btn btn-outline mx-auto text-white"
             onClick={() => logout()}
           >
             Logout
