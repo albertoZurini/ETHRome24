@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useUserStore } from '../utils/user.store';
 import { useLoginLogout } from './useLoginLogout';
 import { usePathname } from 'next/navigation';
+import { EOA } from './EOA';
 
 const activeLinkIndicatorWidthRatio = 0.7;
 
@@ -59,7 +60,7 @@ export default function NavBar() {
 
       {isConnected ? (
         <div className="flex flex-1 items-center ">
-          <span>{"Welcome, " + address?.substring(0, 6) + "..." + address?.substring(address?.length - 4)}</span>
+          <EOA />
           <button
             type="button"
             className="-mr-2 bg-grey-900 p-2 btn btn-outline mx-auto text-white"

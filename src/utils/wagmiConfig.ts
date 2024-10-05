@@ -4,6 +4,7 @@ import { injected, walletConnect } from 'wagmi/connectors';
 import { bellecour } from './bellecourChainConfig';
 import { InjectedWalletProvider } from './injected-wallet-provider/injected-wallet-provider';
 import { EIP6963ProviderDetail } from './injected-wallet-provider/types';
+import { mainnet } from 'wagmi/chains';
 
 // Wagmi Client initialization
 
@@ -65,10 +66,11 @@ preservedAvailableProviderDetails.forEach((providerDetails) => {
 });
 
 export const wagmiConfig = createConfig({
-  chains: [bellecour],
+  chains: [bellecour, mainnet],
   multiInjectedProviderDiscovery: false,
   transports: {
     [bellecour.id]: http(),
+    [mainnet.id]: http(),
   },
   connectors,
 });
