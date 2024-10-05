@@ -1,7 +1,7 @@
-import { useUserStore } from '@/stores/user.store.ts';
 import { IExecWeb3mail } from '@iexec/web3mail';
 import { Eip1193Provider } from 'ethers';
 import { type Connector } from 'wagmi';
+import { useUserStore } from '../user.store';
 
 let web3mail: IExecWeb3mail | null = null;
 
