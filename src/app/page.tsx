@@ -1,5 +1,7 @@
+"use client";
 import Head from "next/head";
 import NfcReader from "./components/NFCReader";
+import LoginGuard from "./components/LoginGuard";
 
 export default function Home() {
   return (
@@ -10,7 +12,9 @@ export default function Home() {
       </Head>
       <main style={{ padding: '20px', textAlign: 'center' }}>
         <h1>NFC Reader Test Page</h1>
-        <NfcReader />
+        <LoginGuard>
+          <NfcReader />
+        </LoginGuard>
       </main>
     </div>
   );
