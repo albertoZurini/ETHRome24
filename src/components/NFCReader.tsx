@@ -38,6 +38,8 @@ const NfcReader: React.FC = () => {
       ndef.onreading = (event: any) => {
         const serialNumber = event.serialNumber;
         setNfcResult(`NFC Tag Serial Number: ${serialNumber}`);
+
+        (window as any).processFunction()
       };
     } catch (error: any) {
       setNfcResult(`Error: ${error.message}`);
