@@ -4,24 +4,9 @@ import GoogleLoginButton from "@/components/GoogleLoginButton";
 import LoginGuard from "@/components/LoginGuard";
 import NfcReader from "@/components/NFCReader";
 import { SessionProvider, useSession } from "next-auth/react";
-import crypto from "crypto";
 
 const Home: React.FC = () => {
   // Use React.FC to define the component type
-  const { data: session } = useSession(); // Get session (with user email)
-  // const { data: session } = useSession({ required: true }); // Require session
-  const uid = crypto.randomBytes(16).toString("hex");
-
-  function sendComment(content: string) {
-    const comment = {
-      content: content,
-      email: session?.user?.email,
-      uid: uid,
-    };
-    console.log(comment);
-
-    return comment;
-  }
   return (
     <SessionProvider>
       <div className="flex flex-col h-screen justify-center mx-auto ">
@@ -30,11 +15,7 @@ const Home: React.FC = () => {
             <SessionProvider>
               <GoogleLoginButton />
               <NfcReader />
-              <CommentsTextBox
-                submit={(content) => {
-                  sendComment(content);
-                }}
-              />
+              <CommentsTextBox />
             </SessionProvider>
           </LoginGuard>
         </main>
