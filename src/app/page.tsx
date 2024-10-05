@@ -11,11 +11,11 @@ const Home: React.FC = () => { // Use React.FC to define the component type
     <SessionProvider>
       <div>
         <Head>
-          <title>NFC Reader Test</title>
+          <title>NFC Reader Test 2</title>
           <meta name="description" content="Test NFC Reader functionality" />
         </Head>
         <main style={{ padding: '20px', textAlign: 'center' }}>
-          <h1>NFC Reader Test Page</h1>
+          <h1>NFC Reader Test Page 2</h1>
           <NfcReader />
           <GoogleLoginButton /> {/* Add your Google Login Button here */}
         </main>
