@@ -11,17 +11,12 @@ import Head from "next/head";
 const Home: React.FC = () => { // Use React.FC to define the component type
   return (
     <SessionProvider>
-      <div>
-        <Head>
-          <title>NFC Reader Test</title>
-          <meta name="description" content="Test NFC Reader functionality" />
-        </Head>
-        <main style={{ padding: '20px', textAlign: 'center' }}>
-          <h1>NFC Reader Test Page</h1>
+      <div className="flex flex-col h-screen justify-center mx-auto ">
+        <main className="mx-auto space-y-5">
           <LoginGuard>
+          <GoogleLoginButton />
             <NfcReader />
           </LoginGuard>
-          <GoogleLoginButton />
         </main>
       </div>
     </SessionProvider>

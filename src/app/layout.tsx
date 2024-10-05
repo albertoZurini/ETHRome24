@@ -5,6 +5,8 @@ import { wagmiConfig } from '../utils/wagmiConfig';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import NavBar from '@/components/NavBar';
 
+import './globals.css';
+
 const queryClient = new QueryClient();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -12,9 +14,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <WagmiConfig config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
         <html lang="en">
-          <body>
+          <body className="dark:bg-gray-900 dark:text-white flex h-screen flex-col text-center">
             <NavBar />
-            <div className="mx-auto mt-12 w-[80%] max-w-6xl">
+            <div>
               {children}
             </div>
           </body>

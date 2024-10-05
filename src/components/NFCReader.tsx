@@ -11,7 +11,7 @@ const NfcReader: React.FC = () => {
     if ('NDEFReader' in window) {
       setIsNfcSupported(true);
     } else {
-      setNfcResult('Web NFC is not supported in this browser.');
+      setNfcResult('Web NFC is not (yet) supported in this browser. Please use Chrome for Android');
     }
 
     // Register service worker
@@ -45,10 +45,9 @@ const NfcReader: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>NFC Reader Demo</h1>
-      <button onClick={handleNfcScan}>Read NFC Tag</button>
-      <p>{nfcResult}</p>
+    <div className='mx-auto space-y-5'>
+      <button className="btn btn-primary btn-wide text-white" onClick={handleNfcScan}>Read NFC Tag</button>
+      <p className='text-red-600 text-2xl font-bold'>{nfcResult}</p>
     </div>
   );
 };
