@@ -21,3 +21,9 @@ Use the `verify` method passing in the hex of the proof and the public input
 ## Inside `deploy_contract` folder
 
 Do the deployment with hardat
+
+`npx hardhat ignition deploy ignition/modules/contract.ts --network optimismSepolia`
+
+To verify the contract submit 
+`npx hardhat flatten contracts/contract.sol > contracts/flattened.sol` to [sepolia-optimism.etherscan.io](sepolia-optimism.etherscan.io)
+
