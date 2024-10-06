@@ -40,7 +40,7 @@ export default function NavBar() {
 
   return (
     <header className="dark flex h-[64px] items-center bg-grey-900 px-8 text-white bg-primary">
-      <Link href="/protectedData" className="-mx-2 flex h-full items-center p-2">
+      <Link href="#" className="-mx-2 flex h-full items-center p-2">
         <div
           className="ml-3 font-bold leading-5"
         >
