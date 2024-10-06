@@ -1,4 +1,5 @@
 "use client";
+import Comments from "@/components/Comments";
 import CommentsTextBox from "@/components/CommentsTextBox";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import LoginGuard from "@/components/LoginGuard";
@@ -16,6 +17,7 @@ const Home: React.FC = () => {
               <GoogleLoginButton />
               <NfcReader />
               <CommentsTextBox />
+              <Comments />
             </SessionProvider>
           </LoginGuard>
         </main>

@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import NavBar from '@/components/NavBar';
 
 import './globals.css';
+import { SessionProvider } from 'next-auth/react';
 
 const queryClient = new QueryClient();
 
@@ -15,7 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <QueryClientProvider client={queryClient}>
         <html lang="en">
           <body className="dark:bg-gray-900 dark:text-white flex h-screen flex-col text-center">
-            <NavBar />
+            <SessionProvider>
+              <NavBar />
+            </SessionProvider>
             <div>
               {children}
             </div>

@@ -1,17 +1,60 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import crypto from "crypto";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getWeb3mailClient } from "@/utils/externals/web3mailClient";
+import { useParams } from "next/navigation";
+import { getDataProtectorClient, initDataProtectorSDK } from "@/utils/externals/dataProtectorClient";
+import { useUserStore } from "@/utils/user.store";
 
 export default function CommentsTextBox() {
   const [content, setContent] = useState<string>(localStorage.getItem("comment") || "");
-
+  const [contentType, setContentType] = useState('text/plain');
+  const [senderName, setSenderName] = useState('Shazam');
+  const [messageSubject, setMessageSubject] = useState('Hey There');
   const { data: session } = useSession(); // Get session (with user email)
+  const { receiverAddress, protectedDataAddress } = useParams();
+  const queryClient = useQueryClient();
+  const { connector } = useUserStore();
   // const { data: session } = useSession({ required: true }); // Require session
   const uid = crypto.randomBytes(16).toString("hex");
 
+  const createProtectedDataMutation = useMutation({
+    mutationKey: ['protectData'],
+    mutationFn: async ({
+      name,
+      data,
+    }: {
+      name: string;
+      data: { email?: string; file?: Uint8Array };
+    }) => {
+      await initDataProtectorSDK({ connector });
+      const { dataProtector } = await getDataProtectorClient();
+      return dataProtector.protectData({ name, data });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['myProtectedData'] });
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+  });
+
   async function sendComment(content: string) {
+    try {
+      createProtectedDataMutation.mutate({
+        name: content,
+        data: {
+          email: session?.user.email,
+        },
+      });
+    }
+    catch (e) {
+      console.log(e)
+    }
+
     const comment = {
       content: content,
       email: session?.user?.email,
@@ -22,10 +65,10 @@ export default function CommentsTextBox() {
     // alert("Comment submitted: " + JSON.stringify(comment));
 
     let body = comment
-    const response = await fetch("/api/submitMessage",{
-        method: "POST",
-        body: JSON.stringify(body)
-      }
+    const response = await fetch("/api/submitMessage", {
+      method: "POST",
+      body: JSON.stringify(body)
+    }
     )
     const json = await response.json();
     console.log(json)
@@ -33,17 +76,17 @@ export default function CommentsTextBox() {
   }
 
   const [reply, setReply] = useState("")
-  async function process(){
+  async function process() {
     let email = null
     email = session?.user?.email
-    if(email == null){
+    if (email == null) {
       email = "alberto.zurini@gmail.com"
     }
 
     let body = {
       email: email
     }
-    const response = await fetch("/api/retrieveReply",{
+    const response = await fetch("/api/retrieveReply", {
       method: "POST",
       body: JSON.stringify(body)
     }
